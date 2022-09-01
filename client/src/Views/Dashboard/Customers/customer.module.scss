@@ -1,0 +1,34 @@
+@import "Components/variables";
+
+.content {
+  background: white;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  max-width: 60rem;
+  width: 100%;
+  grid-template-rows: min-content 1fr;
+  .customers {
+    tr {
+      grid-template-columns: 1fr 6rem 3rem;
+      &:hover {
+        background-color: rgba($primary-color-dark1, 0.1);
+      }
+    }
+  }
+}
+
+.addCustomerForm {
+  .mainForm {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .content {
+    .customers {
+      tr {
+        grid-template-columns: 1fr 6rem 3rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import "Components/variables";
+
+.content {
+  background: white;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  max-width: 60rem;
+  width: 100%;
+  grid-template-rows: min-content 1fr;
+}
+.bills {
+  tr {
+    grid-template-columns: 8rem 1fr 1fr 1fr 1fr 3.5rem;
+  }
+}
+
+.print {
+  height: 100%;
+  width: 100%;
+  display: block;
+  header {
+    h4 {
+      font-size: 2rem;
+    }
+  }
+  .billDetail {
+    page-break-inside: avoid;
+    text-align: right;
+    font-size: 1.5rem;
+  }
+  footer {
+    page-break-inside: avoid;
+  }
+}
+
+@page {
+  margin: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .content {
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+@media print {
+  .print {
+    padding-bottom: 0;
+  }
+}
