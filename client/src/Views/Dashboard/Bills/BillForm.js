@@ -30,7 +30,7 @@ const Detail = ({ label, value, className }) => {
   );
 };
 
-const Form = ({ edit, minUnit, onSuccess }) => {
+const Form = ({ edit, minUnit, maxUnit = 100000000, onSuccess }) => {
   const { user, config } = useContext(SiteContext);
   const [err, setErr] = useState(null);
 
@@ -42,13 +42,14 @@ const Form = ({ edit, minUnit, onSuccess }) => {
         edit={edit}
         setErr={setErr}
         minUnit={minUnit}
+        maxUnit={maxUnit}
         onSuccess={onSuccess}
       />
     </div>
   );
 };
 
-const MainForm = ({ edit, setErr, minUnit, onSuccess }) => {
+const MainForm = ({ edit, setErr, minUnit, maxUnit, onSuccess }) => {
   const { user, config, setConfig } = useContext(SiteContext);
   const {
     handleSubmit,
@@ -67,6 +68,7 @@ const MainForm = ({ edit, setErr, minUnit, onSuccess }) => {
         currentUnit: yup
           .number()
           .min(minUnit + 0.0001, `Unit must be greater than ${minUnit}`)
+          .max(maxUnit - 0.0001, `Unit must be less than ${maxUnit}`)
           .required()
           .typeError("Enter a valid Number"),
       })

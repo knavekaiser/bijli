@@ -39,7 +39,7 @@ exports.update = async (req, res) => {
   try {
     Bill.findOneAndUpdate(
       { _id: req.params.id, user: req.authUser._id },
-      req.body,
+      { ...req.body, unit: req.body.currentUnit },
       { new: true }
     )
       .then((data) => {
