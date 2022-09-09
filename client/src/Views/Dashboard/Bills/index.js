@@ -164,8 +164,10 @@ const Bills = () => {
               : bills[bills.length - 1]?.unit) || customer?.startingUnit
           }
           maxUnit={
-            bills[bills.findIndex((item) => item._id === bill?._id) + 1]
-              ?.unit || null
+            bill
+              ? bills[bills.findIndex((item) => item._id === bill?._id) + 1]
+                  ?.unit
+              : undefined
           }
           onSuccess={(newBill) => {
             if (bill) {

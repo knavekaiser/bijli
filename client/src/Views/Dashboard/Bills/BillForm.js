@@ -21,36 +21,9 @@ import { useReactToPrint } from "react-to-print";
 import { endpoints } from "config";
 import { useParams } from "react-router-dom";
 
-const Detail = ({ label, value, className }) => {
-  return (
-    <p className={`${s.detail} ${className || ""}`}>
-      <span className={s.label}>{label}:</span>{" "}
-      <span className={s.value}>{value}</span>
-    </p>
-  );
-};
-
 const Form = ({ edit, minUnit, maxUnit = 100000000, onSuccess }) => {
-  const { user, config } = useContext(SiteContext);
-  const [err, setErr] = useState(null);
-
-  return (
-    <div className={`grid gap-1 p-1 ${s.addBillForm}`}>
-      {err && <p className="error">{err}</p>}
-
-      <MainForm
-        edit={edit}
-        setErr={setErr}
-        minUnit={minUnit}
-        maxUnit={maxUnit}
-        onSuccess={onSuccess}
-      />
-    </div>
-  );
-};
-
-const MainForm = ({ edit, setErr, minUnit, maxUnit, onSuccess }) => {
   const { user, config, setConfig } = useContext(SiteContext);
+  const [err, setErr] = useState(null);
   const {
     handleSubmit,
     register,
@@ -103,50 +76,53 @@ const MainForm = ({ edit, setErr, minUnit, maxUnit, onSuccess }) => {
     });
   }, [edit]);
   return (
-    <div className={`${s.mainForm} grid gap-1`}>
-      <form
-        className={`${s.mainFormWrapper} grid gap-1 all-columns`}
-        onSubmit={handleSubmit(submitForm)}
-      >
-        <Input
-          label="Date"
-          type="date"
-          {...register("date")}
-          required
-          error={errors.date}
-        />
+    <div className={`grid gap-1 p-1 ${s.addBillForm}`}>
+      {err && <p className="error">{err}</p>}
+      <div className={`${s.mainForm} grid gap-1`}>
+        <form
+          className={`${s.mainFormWrapper} grid gap-1 all-columns`}
+          onSubmit={handleSubmit(submitForm)}
+        >
+          <Input
+            label="Date"
+            type="date"
+            {...register("date")}
+            required
+            error={errors.date}
+          />
 
-        <Input
-          label="Current Unit"
-          type="number"
-          step="0.01"
-          placeholder={`> ${minUnit}`}
-          required
-          {...register("currentUnit")}
-          error={errors.currentUnit}
-        />
+          <Input
+            label="Current Unit"
+            type="number"
+            step="0.01"
+            placeholder={`> ${minUnit}`}
+            required
+            {...register("currentUnit")}
+            error={errors.currentUnit}
+          />
 
-        <Combobox
-          label="Paid"
-          name="paid"
-          watch={watch}
-          register={register}
-          setValue={setValue}
-          required
-          clearErrors={clearErrors}
-          options={[
-            { label: "Yes", value: "true" },
-            { label: "No", value: "false" },
-          ]}
-          error={errors.paid}
-        />
+          <Combobox
+            label="Paid"
+            name="paid"
+            watch={watch}
+            register={register}
+            setValue={setValue}
+            required
+            clearErrors={clearErrors}
+            options={[
+              { label: "Yes", value: "true" },
+              { label: "No", value: "false" },
+            ]}
+            error={errors.paid}
+          />
 
-        <div className="btns">
-          <button className="btn" disabled={loading}>
-            {edit ? "Update" : "Submit"}
-          </button>
-        </div>
-      </form>
+          <div className="btns">
+            <button className="btn" disabled={loading}>
+              {edit ? "Update" : "Submit"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
